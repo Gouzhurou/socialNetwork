@@ -1,0 +1,206 @@
+.some-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  width: 48%;
+  background-color: white;
+  border-radius: 20px;
+  margin: 8px;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.msg-block {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.msg-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.user-container {
+  margin: 10px;
+  margin-bottom: 5px;
+}
+
+.top-block,
+.post-intro {
+  display: flex;
+}
+/* .user-intro {
+  padding-left: 44px;
+} */
+
+.top-block > img,
+.post-intro > img,
+.user-container > .top-block > img,
+.user-intro > .top-block > img {
+  border-radius: 50%;
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+}
+
+.post-img {
+  display: flex;
+  justify-content: center;
+}
+
+.post-img > img {
+  width: 65%;
+  /* height: ; */
+}
+
+.user-intro > .top-block > img {
+  width: 130px;
+  height: 130px;
+  margin: 22px 0px;
+  margin-left: 44px;
+}
+
+.post-intro > img {
+  width: 50px;
+  height: 50px;
+}
+
+.message > p,
+.post-info > p,
+.msg > p,
+.list-header > p,
+.user-info > p,
+.bottom-block > #buttons,
+.formDiv > p {
+  color: rgb(12, 10, 9);
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.msg {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.post-info {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-info > p {
+  color: rgb(75, 75, 75);
+  font-size: 14px; 
+}
+
+.user-container,
+.list-header {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.list-header {
+  padding-top: 35px;
+  padding-bottom: 24px;
+}
+
+.top-block,
+.post-intro {
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.user-intro > .top-block {
+  padding: 0;
+}
+
+.user-info,
+.message {
+  padding-left: 32px;
+}
+
+.message {
+  color: rgb(75, 75, 75);
+  padding-top: 10px;
+}
+
+.list-header > p,
+.user-intro > .top-block > .user-info > p {
+  font-size: 24px;
+}
+
+.user-container > .top-block > .user-info > p > a {
+  color: rgb(10, 9, 12);
+  text-decoration: none;
+}
+.user-container > .top-block > .user-info > p > a:hover {
+  text-decoration: underline;
+}
+
+.list-header > p,
+.user-info > p,
+.user-info > p > a,
+.bottom-block > #buttons {
+  font-weight: 600;
+}
+
+.user-container > .bottom-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #323232;
+}
+.formDiv > #close {
+  background-color: red;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.formDiv > #sub {
+  background-color: greenyellow;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+} */
+/* input {
+  background-color: white;
+} */
+/* .bottom-block > #edit {
+  margin-right: 50px;
+  border-radius: 10px;
+} */
+
+/* .bottom-block > #buttons {
+  display: flex;
+  margin-left: 10px;
+  border-radius: 10px;
+} */
+
+.bottom-block > #buttons {
+  color: white;
+  padding: 5px 40px; /* Отступы для кнопок */
+  background-color: #005196; /* Основной цвет кнопки */
+  color: #dfd9c6; /* Белый текст */
+  border: none; /* Без границы */
+  border-radius: 10px; /* Скругление углов */
+  cursor: pointer; /* Курсор в виде указателя при наведении */
+  /* transition: background-color 0.3s ease, transform 0.2s; Плавный переход цвета фона и трансформации */
+}
+
+.bottom-block > #buttons:hover {
+  background-color: #014480; /* Цвет кнопки при наведении */
+  /* transform: translateY(-2px); Небольшая анимация при наведении */
+}

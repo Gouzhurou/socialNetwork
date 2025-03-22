@@ -1,0 +1,52 @@
+[
+  {
+    "id": "romapr70",
+    "messages": [
+      {
+        "msg": "Люблю тебя",
+        "date": "0000-00-00",
+        "time": "00:00",
+        "id": 0,
+        "receiverID": "senileelf"
+      },
+      {
+        "msg": "Погнали на Щелкунчика?",
+        "date": "2024-11-24",
+        "time": "13:43",
+        "id": 1,
+        "recieverID": "senileelf"
+      }
+    ]
+  },
+  {
+    "id": "senileelf",
+    "messages": [
+      {
+        "msg": "Я тоже тебя люблю",
+        "date": "2024-10-02",
+        "time": "01:00",
+        "id": 0,
+        "receiverID": "romapr70"
+      },
+      {
+        "msg": "Надо будет еще раз затусить",
+        "date": "2024-11-24",
+        "time": "13:43",
+        "id": 1,
+        "recieverID": "maracooon"
+      },
+      {
+        "msg": "Да, мне нравится идея. В субботу?",
+        "date": "2024-11-24",
+        "time": "13:43",
+        "id": 2,
+        "recieverID": "romapr70"
+      }
+    ]
+  },
+  {
+    "id": "maracooon",
+    "messages": [
+    ]
+  }
+]

@@ -1,0 +1,94 @@
+.usersList {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+}
+
+.userContainer {
+    background-color: rgb(50, 50, 50);
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.headerContainer {
+    background-color: rgb(50, 50, 50);
+    padding: 10px;
+    border: 1px solid gray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.userContainer>.topBlock {
+    display: flex;
+}
+
+.userContainer>.topBlock>.userInfo>p , .userContainer>.topBlock>.userInfo>h3, .formDiv>p {
+    color: white;
+}
+
+.usersList>.headerContainer>h1 {
+    color: white;
+    text-align: center; 
+}
+
+.userContainer>.topBlock>.userInfo>h3>a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.userContainer>.topBlock>.userInfo>h3>a:hover {
+    text-decoration: underline;
+}
+
+.userContainer>.topBlock>img {
+    border-radius: 50%; 
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+}
+
+.userContainer>.bottomBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+dialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(50, 50, 50);
+}
+
+.formDiv>#close {
+    background-color: red;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.formDiv>#sub {
+    background-color: greenyellow;
+    display: block;
+    margin: 0 auto; 
+    margin-top: 10px;
+}
+
+input {
+    background-color: white;
+}
+
+.bottomBlock>#edit {
+    margin-right: 50px;
+    border-radius: 10px;
+}
+
+.bottomBlock>#rightButtons {
+    display: flex;
+    margin-left: 10px;
+    border-radius: 10px;
+}

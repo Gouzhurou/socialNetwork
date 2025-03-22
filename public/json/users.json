@@ -1,0 +1,38 @@
+[
+  {
+    "id": "senileelf",
+    "password": "hahaha",
+    "name": "Елена",
+    "secondName": "Шангина",
+    "patronymic": "",
+    "birthDate": "2002-10-03",
+    "email": "arlantamom1999@gmail.com",
+    "pfp": "senileelf.jpg",
+    "role": "Пользователь",
+    "status": "Администратор"
+  },
+  {
+    "id": "romapr70",
+    "password": "12345678",
+    "name": "Роман",
+    "secondName": "Проценко",
+    "patronymic": "",
+    "birthDate": "2002-05-02",
+    "email": "romashka@gmail.com",
+    "pfp": "romapr70.jpg",
+    "status": "Активный",
+    "role": "Не подтвержден"
+  },
+  {
+    "id": "maracooon",
+    "password": "password",
+    "name": "Светлана",
+    "secondName": "Кичигина",
+    "patronymic": "",
+    "birthDate": "2002-05-21",
+    "email": "SVetlana1234@mail.ru",
+    "pfp": "maracooon.jpg",
+    "role": "Пользователь",
+    "status": "Не подтвержден"
+  }
+]

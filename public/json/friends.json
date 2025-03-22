@@ -1,0 +1,26 @@
+[
+  {
+    "id": "romapr70",
+    "friendsID": [
+      "senileelf"
+    ]
+  },
+  {
+    "id": "maracooon",
+    "friendsID": [
+      "senileelf"
+    ]
+  },
+  {
+    "id": "senileelf",
+    "friendsID": [
+      "romapr70",
+      "maracooon"
+    ]
+  },
+  {
+    "id": "hui",
+    "friendsID": [
+    ]
+  }
+]
