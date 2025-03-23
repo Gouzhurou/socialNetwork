@@ -3,6 +3,7 @@
     "id": "romapr70",
     "news": [
       {
+        "id": 1,
         "msg": "Приехали на свадьбу в Саратов",
         "postimg": "HfJadEz5u2w.jpg",
         "date": "2024-10-09",
@@ -14,18 +15,21 @@
     "id": "maracooon",
     "news": [
       {
+        "id": 0,
         "msg": "Каша из топора",
         "postimg": "0cKhCSsQsWM.jpg",
         "date": "2024-08-10",
         "time": "04:13"
       },
       {
+        "id": 1,
         "msg": "I love you so much my dear",
         "postimg": "tDPwVT1caUg.jpg",
         "date": "2024-11-02",
         "time": "6:2"
       },
       {
+        "id": 2,
         "msg": "Денсим не по-детски",
         "postimg": "ajJjY4D1cHw.jpg",
         "date": "2024-11-02",
@@ -37,37 +41,30 @@
     "id": "senileelf",
     "news": [
       {
+        "id": 0,
         "msg": "Мы были на Китайской стене!!!",
         "postimg": "china.jpg",
         "date": "2024-08-10",
         "time": "04:13"
       },
       {
+        "id": 1,
         "msg": "Потусили вместе со Светой",
         "postimg": "FVgWidBKWdg.jpg",
         "date": "2024-08-10",
         "time": "04:13"
       },
       {
+        "id": 2,
         "msg": "Лес зеленый, а лесная на красной?",
         "postimg": "",
         "date": "2024-08-10",
         "time": "04:13"
       },
       {
+        "id": 3,
         "msg": "Мистер яйцо убегал с зеркала, пока мы пытались его сфоткать",
         "postimg": "egg.jpg",
-        "date": "2024-08-10",
-        "time": "04:13"
-      }
-    ]
-  },
-  {
-    "id": "hui",
-    "news": [
-      {
-        "msg": "Я придурок",
-        "postimg": "",
         "date": "2024-08-10",
         "time": "04:13"
       }

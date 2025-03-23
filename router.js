@@ -15,13 +15,13 @@ router.get("/users", (req, res) => {
     res.render("users", {pageName: "Пользователи"});
 });
 
-// router.get("/users/:id", (req, res) => {
-//     for(let user of users){
-//         if(user.id == req.params.id){
-//             res.render("user", {pageName: "Пользователь " + user.name + " " + user.secondName});
-//         }
-//     }
-// });
+router.get("/users/:id/user", (req, res) => {
+    for(let user of users){
+        if(user.id == req.params.id){
+            res.render("user", {pageName: "Пользователь " + user.name + " " + user.secondName});
+        }
+    }
+});
 
 router.get("/users/:id/friends", (req, res) => {
     for(let user of users){
@@ -49,6 +49,25 @@ router.get("/users/:id/news", (req, res) => {
 
 router.get("/users/get-users", (req, res) => {
     res.end(JSON.stringify(users));
+});
+
+router.get("/users/get-user/:id", (req, res) => {
+    let arr = []
+    for(let user of users){
+        if(user.id === req.params.id){
+            arr.push(user);
+            break;
+        }
+    }
+
+    for(let user of news){
+        if(user.id === req.params.id){
+            arr.push(user.news);
+            break;
+        }
+    }
+    // console.log(arr);
+    res.end(JSON.stringify(arr));
 });
 
 router.get("/users/get-friends/:id", (req, res) => {
@@ -106,6 +125,7 @@ router.get("/users/get-news/:id", (req, res) => {
     let posts = [];
     for(let user of users){
         if(req.params.id === user.id){
+            posts.push(user.id);
             posts.push(user.name + " " + user.secondName);
             posts.push(user.pfp);
             break;
@@ -176,7 +196,7 @@ router.post("/users/edit/:id", (req, res) => {
     res.redirect('/users');
 });
 
-router.post("/users/:userid/remove-message/:msgid", (req, res) => {
+router.post("/users/:userid/messages/:msgid", (req, res) => {
     for(msgOwner of messages){
         if(msgOwner.id == req.params.userid){
             for(let i = 0; i < msgOwner.messages.length; i++){
@@ -189,6 +209,21 @@ router.post("/users/:userid/remove-message/:msgid", (req, res) => {
         }
     }
     res.redirect('/users/' + req.params.userid + "/messages");
+});
+
+router.post("/users/:userid/:ownerid/news/:newsid", (req, res) => {
+    for(userNews of news){
+        if(userNews.id == req.params.ownerid){
+            for(let i = 0; i < userNews.news.length; i++){
+                if(userNews.news[i].id == req.params.newsid){
+                    userNews.news.splice(i, 1);
+                    fs.writeFile("./public/json/news.json", JSON.stringify(news, null, 2), 'utf8', () => {});
+                    break;
+                }
+            }
+        }
+    }
+    res.redirect('/users/' + req.params.userid + "/news");
 });
 
 router.post("/addUser", (req, res) => {

@@ -14,7 +14,7 @@
         "date": "2024-11-24",
         "time": "13:43",
         "id": 1,
-        "recieverID": "senileelf"
+        "receiverID": "senileelf"
       }
     ]
   },
@@ -33,20 +33,19 @@
         "date": "2024-11-24",
         "time": "13:43",
         "id": 1,
-        "recieverID": "maracooon"
+        "receiverID": "maracooon"
       },
       {
         "msg": "Да, мне нравится идея. В субботу?",
         "date": "2024-11-24",
         "time": "13:43",
         "id": 2,
-        "recieverID": "romapr70"
+        "receiverID": "romapr70"
       }
     ]
   },
   {
     "id": "maracooon",
-    "messages": [
-    ]
+    "messages": []
   }
 ]

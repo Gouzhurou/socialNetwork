@@ -9,11 +9,21 @@
   margin: 8px;
 }
 
+.post-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .post-container {
   display: flex;
   flex-direction: column;
   padding-left: 44px;
   padding-right: 44px;
+}
+
+.info-text {
+  padding-left: 44px;
 }
 
 .msg-block {
@@ -36,9 +46,6 @@
 .post-intro {
   display: flex;
 }
-/* .user-intro {
-  padding-left: 44px;
-} */
 
 .top-block > img,
 .post-intro > img,
@@ -57,7 +64,6 @@
 
 .post-img > img {
   width: 65%;
-  /* height: ; */
 }
 
 .user-intro > .top-block > img {
@@ -72,6 +78,7 @@
   height: 50px;
 }
 
+.info-block > .info-text > p,
 .message > p,
 .post-info > p,
 .msg > p,
@@ -156,7 +163,7 @@
   align-items: center;
 }
 
-/* dialog {
+dialog {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -174,32 +181,33 @@
   display: block;
   margin: 0 auto;
   margin-top: 10px;
-} */
-/* input {
+} 
+input {
   background-color: white;
-} */
-/* .bottom-block > #edit {
+}
+.bottom-block > #edit {
   margin-right: 50px;
   border-radius: 10px;
-} */
+}
 
-/* .bottom-block > #buttons {
+s.bottom-block > #buttons {
   display: flex;
   margin-left: 10px;
   border-radius: 10px;
-} */
+}
 
+#delete-msg,
 .bottom-block > #buttons {
   color: white;
   padding: 5px 40px; /* Отступы для кнопок */
   background-color: #005196; /* Основной цвет кнопки */
-  color: #dfd9c6; /* Белый текст */
   border: none; /* Без границы */
   border-radius: 10px; /* Скругление углов */
   cursor: pointer; /* Курсор в виде указателя при наведении */
   /* transition: background-color 0.3s ease, transform 0.2s; Плавный переход цвета фона и трансформации */
 }
 
+#delete-msg,
 .bottom-block > #buttons:hover {
   background-color: #014480; /* Цвет кнопки при наведении */
   /* transform: translateY(-2px); Небольшая анимация при наведении */

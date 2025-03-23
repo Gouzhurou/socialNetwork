@@ -39,7 +39,7 @@ function formMessage(message){
     });
 
     let id = window.location.pathname.split('/')[2];
-    let $removeForm = $(`<form action='/users/${id}/remove-message/${message.id}' method="POST">`);
+    let $removeForm = $(`<form action='/users/${id}/messages/${message.id}' method="DELETE">`);
      
     $removeForm.append(`<button id="deleteMsg" onclick>Удалить`);
 

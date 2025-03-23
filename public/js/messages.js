@@ -15,7 +15,6 @@ function initMessagesTable(messages) {
   $infoBlock.append(`<p>${name}`);
   $top.append($infoBlock);
   $(".user-intro").append($top);
-  console.log("asasd");
 
   let $headerDiv = $('<div>').addClass("list-header");
   $headerDiv.append("<p> Сообщения");
@@ -31,8 +30,10 @@ function formMessage(message) {
   let $msgIntro = $('<div>').addClass('top-block');
   
   $.getJSON(`/users/get-users`, users => {
+    console.log("json");
     for(let user of users){
-      if(user.id == message.recieverID){
+      if(user.id == message.receiverID){
+        console.log("user", user.id);
         $msgIntro.append(`<img src="/img/pfp/${user.pfp}">`);
 
         let $msgBox = $('<div>').addClass('msg-box');
@@ -51,19 +52,12 @@ function formMessage(message) {
   });
 
   $msgBlock.append($msgIntro);
-  // $messageBlock.append(`<h2>${message.msg}`);
-  // $.getJSON(`/users/get-users`, users => {
-  //   for (user of users) {
-  //     if (user.id == message.recieverID) {
-  //       $timeBlock.append(`<p>${message.time} | ${message.date} | => ${user.name + " " + user.secondName}`);
-  //     }
-  //   }
-  // });
-  // let id = window.location.pathname.split('/')[2];
-  // let $removeForm = $(`<form action='/users/${id}/remove-message/${message.id}' method="POST">`);
-  // $removeForm.append(`<button id="deleteMsg" onclick>Удалить`);
-  // $userBlock.append($messageBlock);
-  // $userBlock.append($timeBlock);
-  // $userBlock.append($removeForm);
+
+  let id = window.location.pathname.split('/')[2];
+  let $removeForm = $(`<form action='/users/${id}/messages/${message.id}' method="POST">`);
+  $removeForm.append(`<button id="delete-msg" onclick>Удалить`);
+  
+  $msgBlock.append($removeForm);
+
   return $msgBlock;
 }

@@ -6,6 +6,7 @@ jQuery(() => {
 });
 
 function initNewsTable(news) {
+  let id = news.shift();
   let name = news.shift();
   let fileName = news.shift();
 
@@ -25,15 +26,15 @@ function initNewsTable(news) {
     let mainID = friendNews.id;
     let posts = friendNews.news;
     posts.forEach(post => {
-      $(".user-news").append(formNewsContainer(post, mainID));
+      $(".user-news").append(formNewsContainer(post, mainID, id));
     });
   });
 }
 
-function formNewsContainer(post, id) {
+function formNewsContainer(post, ownerID, userID) {
   let $postBlock = $('<div>').addClass('post-container');
   
-  $postBlock.append(getPostHead(id));
+  $postBlock.append(getPostHead(post, ownerID, userID));
 
   if (post.postimg != "")
   {
@@ -53,14 +54,14 @@ function formNewsContainer(post, id) {
   return $postBlock;
 }
 
-function getPostHead(id)
+function getPostHead(post, ownerID, userID)
 {
   let $postHead = $('<div>').addClass('post-head');
   let $postIntro = $('<div>').addClass('post-intro');
 
   $.getJSON(`/users/get-users`, users => {
     for(let user of users){
-      if(user.id == id){
+      if(user.id == ownerID){
         $postIntro.append(`<img src="/img/pfp/${user.pfp}">`);
         let $infoBlock = $('<div>').addClass('user-info');
         $infoBlock.append(`<p>${user.name} ${user.secondName}`);
@@ -70,5 +71,10 @@ function getPostHead(id)
   });
 
   $postHead.append($postIntro);
+
+  let $removeForm = $(`<form action='/users/${userID}/${ownerID}/news/${post.id}' method="POST">`);
+  $removeForm.append(`<button id="delete-msg" onclick>Удалить`);
+  $postHead.append($removeForm);
+
   return $postHead;
 }
