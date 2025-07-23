@@ -1,12 +1,31 @@
-.some-list {
+.users {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-  width: 48%;
-  background-color: white;
-  border-radius: 20px;
-  margin: 8px;
+  gap: 30px;
+}
+
+.user__info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.user__img {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 88px;
+  height: 88px;
+  margin-right: 32px;
+}
+
+.user__name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user__buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .post-head {
@@ -18,28 +37,12 @@
 .post-container {
   display: flex;
   flex-direction: column;
-  padding-left: 44px;
-  padding-right: 44px;
-}
-
-.info-text {
-  padding-left: 44px;
-}
-
-.msg-block {
-  padding-left: 44px;
-  padding-right: 44px;
 }
 
 .msg-date {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-}
-
-.user-container {
-  margin: 10px;
-  margin-bottom: 5px;
 }
 
 .top-block,
@@ -49,7 +52,7 @@
 
 .top-block > img,
 .post-intro > img,
-.user-container > .top-block > img,
+.user > .top-block > img,
 .user-intro > .top-block > img {
   border-radius: 50%;
   width: 88px;
@@ -82,9 +85,7 @@
 .message > p,
 .post-info > p,
 .msg > p,
-.list-header > p,
 .user-info > p,
-.bottom-block > #buttons,
 .formDiv > p {
   color: rgb(12, 10, 9);
   font-size: 16px;
@@ -106,25 +107,10 @@
   font-size: 14px; 
 }
 
-.user-container,
-.list-header {
-  padding-left: 44px;
-  padding-right: 44px;
-}
-
-.list-header {
-  padding-top: 35px;
-  padding-bottom: 24px;
-}
-
 .top-block,
 .post-intro {
   align-items: center;
   padding-bottom: 10px;
-}
-
-.user-intro > .top-block {
-  padding: 0;
 }
 
 .user-info,
@@ -137,30 +123,22 @@
   padding-top: 10px;
 }
 
-.list-header > p,
 .user-intro > .top-block > .user-info > p {
   font-size: 24px;
 }
 
-.user-container > .top-block > .user-info > p > a {
+.user > .top-block > .user-info > p > a {
   color: rgb(10, 9, 12);
   text-decoration: none;
 }
-.user-container > .top-block > .user-info > p > a:hover {
+.user > .top-block > .user-info > p > a:hover {
   text-decoration: underline;
 }
 
-.list-header > p,
-.user-info > p,
-.user-info > p > a,
-.bottom-block > #buttons {
-  font-weight: 600;
-}
 
-.user-container > .bottom-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.user-info > p,
+.user-info > p > a {
+  font-weight: 600;
 }
 
 dialog {
@@ -190,14 +168,7 @@ input {
   border-radius: 10px;
 }
 
-s.bottom-block > #buttons {
-  display: flex;
-  margin-left: 10px;
-  border-radius: 10px;
-}
-
-#delete-msg,
-.bottom-block > #buttons {
+#delete-msg {
   color: white;
   padding: 5px 40px; /* Отступы для кнопок */
   background-color: #005196; /* Основной цвет кнопки */
@@ -207,8 +178,7 @@ s.bottom-block > #buttons {
   /* transition: background-color 0.3s ease, transform 0.2s; Плавный переход цвета фона и трансформации */
 }
 
-#delete-msg,
-.bottom-block > #buttons:hover {
+#delete-msg {
   background-color: #014480; /* Цвет кнопки при наведении */
   /* transform: translateY(-2px); Небольшая анимация при наведении */
 }

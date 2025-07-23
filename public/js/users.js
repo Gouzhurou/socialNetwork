@@ -1,41 +1,46 @@
 jQuery(() => {
   $.getJSON("/users/get-users", users => {
-    console.log("2");
+    console.log("get users list");
     initUsersTable(users);
   });
 });
 
 function initUsersTable(users) 
 {
-  let $headerDiv = $('<div>').addClass("list-header");
-  $headerDiv.append("<p> Пользователи");
-  $(".some-list").append($headerDiv);
+  let $header = $('<p>').text("Пользователи").addClass("heading").addClass("black-text");
+  $(".users-list").append($header);
 
+  let $users = $('<div>').addClass("users");
   users.forEach(user => {
-    $(".some-list").append(formUserInfo(user));
+    $users.append(formUserInfo(user));
   });
+
+  $(".users-list").append($users);
 }
 
 function formUserInfo(user) 
 {
-  let $userBlock = $('<div>').addClass('user-container');
-  let $infoBlock = $('<div>').addClass('user-info');
-  let $top = $('<div>').addClass('top-block');
-  let $bottom = $('<div>').addClass('bottom-block');
+  let $user = $('<div>').addClass('user');
 
-  $top.append(`<img src="/img/pfp/${user.pfp}">`);
-  console.log();
-  $infoBlock.append(`<p><a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
+  let $top = $('<div>').addClass('user__info');
+  let $img = $(`<img src="/img/avatars/${user.avatar}">`).addClass('user__img');
+  $top.append($img);
+  let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
+  $name.addClass('user__name').addClass("black-text")
+  $top.append($name);
 
-  $top.append($infoBlock);
-
-  let $
-
-  $bottom.append(`<button id='buttons' onclick='window.location.href="/users/${user.id}/friends";'>Друзья`);
-  $bottom.append(`<button id='buttons' onclick='window.location.href="/users/${user.id}/news";'>Новостная лента`);
-  $bottom.append(`<button id='buttons' onclick='window.location.href="/users/${user.id}/messages";'>Сообщения`);
+  let $bottom = $('<div>').addClass('user__buttons');
+  let $friends = $(`<button onclick='window.location.href="/users/${user.id}/friends";'>Друзья</button>`);
+  $friends.addClass("button").addClass("black-text");
+  $bottom.append($friends);
+  let $news = $(`<button onclick='window.location.href="/users/${user.id}/news";'>Новостная лента</button>`);
+  $news.addClass("button").addClass("black-text");
+  $bottom.append($news);
+  let $massages = $(`<button onclick='window.location.href="/users/${user.id}/messages";'>Сообщения</button>`);
+  $massages.addClass("button").addClass("black-text");
+  $bottom.append($massages);
   
-  $userBlock.append($top);
-  $userBlock.append($bottom);
-  return $userBlock;
+  $user.append($top);
+  $user.append($bottom);
+  return $user;
 }
