@@ -11,7 +11,7 @@ function initNewsTable(news) {
   let fileName = news.shift();
 
   let $top = $('<div>').addClass('top-block');
-  $top.append(`<img src="/img/pfp/${fileName}">`);
+  $top.append(`<img src="/img/avatars/${fileName}">`);
   let $infoBlock = $('<div>').addClass('user-info');
   $infoBlock.append(`<p>${name}`);
   $top.append($infoBlock);
@@ -62,7 +62,7 @@ function getPostHead(post, ownerID, userID)
   $.getJSON(`/users/get-users`, users => {
     for(let user of users){
       if(user.id == ownerID){
-        $postIntro.append(`<img src="/img/pfp/${user.pfp}">`);
+        $postIntro.append(`<img src="/img/avatars/${user.avatar}">`);
         let $infoBlock = $('<div>').addClass('user-info');
         $infoBlock.append(`<p>${user.name} ${user.secondName}`);
         $postIntro.append($infoBlock);

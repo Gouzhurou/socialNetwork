@@ -10,7 +10,7 @@ function initUsersTable(users) {
   let fileName = users.shift();
 
   let $top = $('<div>').addClass('top-block');
-  $top.append(`<img src="/img/pfp/${fileName}">`);
+  $top.append(`<img src="/img/avatars/${fileName}">`);
   let $infoBlock = $('<div>').addClass('user-info');
   $infoBlock.append(`<p>${name}`);
   $top.append($infoBlock);
@@ -31,7 +31,7 @@ function formUserInfo(user) {
   let $top = $('<div>').addClass('top-block');
   let $bottom = $('<div>').addClass('bottom-block');
 
-  $top.append(`<img src="/img/pfp/${user.pfp}">`);
+  $top.append(`<img src="/img/avatars/${user.avatar}">`);
   $infoBlock.append(`<p><a href='/users/${user.id}'>${user.name} ${user.secondName}</a>`);
   // $infoBlock.append(`<p> id: ${user.id}`);
   // $infoBlock.append(`<p> Дата рождения: ${user.birthDate}`);
@@ -59,7 +59,7 @@ function formUserInfo(user) {
   // $formDiv.append('<p>E-mail:');
   // $formDiv.append(`<input name='email' id='email' placeholder='e-mail' value=${user.email}>`);
   // $formDiv.append('<p>Фотография профиля:');
-  // $formDiv.append(`<input type='file' name='pfp'>`);
+  // $formDiv.append(`<input type='file' name='avatars'>`);
   // $formDiv.append('<p>Роль:');
   // let $role = $(`<select id='role' name="role">`);
   // $role.append('<option value="Пользователь">Пользователь');

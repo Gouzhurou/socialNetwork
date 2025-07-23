@@ -77,7 +77,7 @@ router.get("/users/get-friends/:id", (req, res) => {
             for(let friendsOwner of users){
                 if(req.params.id === friendsOwner.id){
                     arr.push(friendsOwner.name + " " + friendsOwner.secondName);
-                    arr.push(friendsOwner.pfp);
+                    arr.push(friendsOwner.avatar);
                     break;
                 }
             }
@@ -102,7 +102,7 @@ router.get("/users/get-messages/:id", (req, res) => {
             for(let messagesOwner of users){
                 if(req.params.id == messagesOwner.id){
                     arr.push(messagesOwner.name + " " + messagesOwner.secondName);
-                    arr.push(messagesOwner.pfp);
+                    arr.push(messagesOwner.avatar);
                     break;
                 }
             }
@@ -127,7 +127,7 @@ router.get("/users/get-news/:id", (req, res) => {
         if(req.params.id === user.id){
             posts.push(user.id);
             posts.push(user.name + " " + user.secondName);
-            posts.push(user.pfp);
+            posts.push(user.avatar);
             break;
         }
     }
@@ -183,9 +183,9 @@ router.post("/users/edit/:id", (req, res) => {
             user.birthDate = req.body.birthDate;
             if(req.body.email.indexOf('@') != -1) user.email = req.body.email;
             if(req.files && Object.keys(req.files).length !== 0){
-                const photo = req.files.pfp;
-                user.pfp = photo.name;
-                photo.mv("./public/img/pfp/" + photo.name);
+                const photo = req.files.avatar;
+                user.avatar = photo.name;
+                photo.mv("./public/img/avatars/" + photo.name);
             }
             user.role = req.body.role;
             user.status = req.body.status;

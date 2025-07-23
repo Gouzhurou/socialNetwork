@@ -28,7 +28,7 @@ function formUserInfo(user){
     let $top = $('<div>').addClass('top-block');
     let $bottom = $('<div>').addClass('bottom-block');
 
-    $top.append(`<img src="/img/pfp/${user.pfp}">`);
+    $top.append(`<img src="/img/avatars/${user.avatar}">`);
 
     $infoBlock.append(`<h3><a href='/users/${user.id}'>${user.name} ${user.secondName}</a>`);
     // $infoBlock.append(`<p> id: ${user.id}`);
@@ -58,7 +58,7 @@ function formUserInfo(user){
     // $formDiv.append('<p>E-mail:');
     // $formDiv.append(`<input name='email' id='email' placeholder='e-mail' value=${user.email}>`);
     // $formDiv.append('<p>Фотография профиля:');
-    // $formDiv.append(`<input type='file' name='pfp'>`);
+    // $formDiv.append(`<input type='file' name='avatars'>`);
     
     // $formDiv.append('<p>Роль:');
     // let $role = $(`<select id='role' name="role">`);

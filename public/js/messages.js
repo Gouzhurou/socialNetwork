@@ -10,7 +10,7 @@ function initMessagesTable(messages) {
   let fileName = messages.shift();
 
   let $top = $('<div>').addClass('top-block');
-  $top.append(`<img src="/img/pfp/${fileName}">`);
+  $top.append(`<img src="/img/avatars/${fileName}">`);
   let $infoBlock = $('<div>').addClass('user-info');
   $infoBlock.append(`<p>${name}`);
   $top.append($infoBlock);
@@ -34,7 +34,7 @@ function formMessage(message) {
     for(let user of users){
       if(user.id == message.receiverID){
         console.log("user", user.id);
-        $msgIntro.append(`<img src="/img/pfp/${user.pfp}">`);
+        $msgIntro.append(`<img src="/img/avatars/${user.avatar}">`);
 
         let $msgBox = $('<div>').addClass('msg-box');
 
