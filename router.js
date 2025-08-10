@@ -66,7 +66,7 @@ router.get("/users/get-user/:id", (req, res) => {
             break;
         }
     }
-    // console.log(arr);
+
     res.end(JSON.stringify(arr));
 });
 

@@ -1,43 +1,45 @@
-.usersList {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+.post {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-bottom: 0.5px solid rgb(152, 152, 152);
+    padding-bottom: 8px;
+    box-sizing: border-box;
 }
-.postContainer {
-  background-color: #323232;
-  padding: 10px;
-  border: 1px solid gray;
-  border-radius: 10px;
+
+.post__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.headerContainer {
-  background-color: #323232;
-  padding: 10px;
-  border: 1px solid gray;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+
+.post__intro {
+    display: flex;
+    align-items: center;
 }
-.postContainer > .topBlock {
-  display: flex;
+
+.post__user-img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    margin-right: 32px;
 }
-.postContainer > img {
-  width: 300px;
-  height: auto;
+
+.post__img-container {
+    display: flex;
+    justify-content: center;
 }
-.postContainer > .topBlock > .userInfo > p,
-.postContainer > .topBlock > .userInfo > h3,
-.formDiv > p,
-.postContainer > .msgContainer > p,
-.postContainer > .msgContainer > h3 {
-  color: white;
+
+.post__img {
+    width: 55%;
 }
-.usersList > .headerContainer > h1 {
-  color: white;
-  text-align: center;
+
+.post__date-container {
+    display: flex;
+    flex-direction: row-reverse;
 }
-.postContainer > img {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+
+.post__date {
+    color: rgb(152, 152, 152);
 }

@@ -1,9 +1,11 @@
 extends page
 
 block head
+    link(rel="stylesheet", href="/css/user.css", type="text/css")
     link(rel="stylesheet", href="/css/users.css", type="text/css")
+    link(rel="stylesheet", href="/css/news.css", type="text/css")
     script(src="/js/news.js")
 
 block content 
-    div(class="some-list user-intro")
-    div(class="some-list user-news")
+    div(class="white-block user-intro")
+    div(class="white-block user-posts")

@@ -1,5 +1,6 @@
 jQuery(() => {
   let id = window.location.pathname.split('/')[2];
+  console.log("get user: " + id);
   $.getJSON(`/users/get-news/${id}`, news => {
     initNewsTable(news);
   });
@@ -10,62 +11,64 @@ function initNewsTable(news) {
   let name = news.shift();
   let fileName = news.shift();
 
-  let $top = $('<div>').addClass('top-block');
-  $top.append(`<img src="/img/avatars/${fileName}">`);
-  let $infoBlock = $('<div>').addClass('user-info');
-  $infoBlock.append(`<p>${name}`);
-  $top.append($infoBlock);
-  $(".user-intro").append($top);
-  console.log("asasd");
+  let $img = $(`<img src="/img/avatars/${fileName}">`);
+  $img.addClass("account__img");
+  let $name = $(`<a href='/users/${id}/user'>${name}</a>`);
+  $name.addClass('account__name').addClass("black-text");
+  $(".user-intro").append($img);
+  $(".user-intro").append($name);
 
-  let $headerDiv = $('<div>').addClass("list-header");
-  $headerDiv.append("<p> Новости");
-  $(".user-news").append($headerDiv);
+  let $header = $('<p>').text("Новости").addClass("heading").addClass("black-text");
+  $(".user-posts").append($header);
 
+  let $news = $('<div>').addClass("list");
   news.forEach(friendNews => {
     let mainID = friendNews.id;
     let posts = friendNews.news;
     posts.forEach(post => {
-      $(".user-news").append(formNewsContainer(post, mainID, id));
+      $news.append(getNews(post, mainID, id));
     });
   });
+  $(".user-posts").append($news);
 }
 
-function formNewsContainer(post, ownerID, userID) {
-  let $postBlock = $('<div>').addClass('post-container');
-  
-  $postBlock.append(getPostHead(post, ownerID, userID));
+function getNews(post, ownerID, userID) {
+  let $post = $('<div>').addClass('post');
+
+  $post.append(getPostHead(post, ownerID, userID));
 
   if (post.postimg != "")
   {
-    let $postImg = $('<div>').addClass('post-img');
-    $postImg.append(`<img src="/img/posts/${post.postimg}">`);
-    $postBlock.append($postImg);
+    $postImgContainer = $('<div>').addClass('post__img-container');
+    $postImg = $(`<img src="/img/posts/${post.postimg}">`).addClass('post__img')
+    $postImgContainer.append($postImg);
+    $post.append($postImgContainer);
   }
 
-  let $postMsg = $('<div>').addClass('msg');
-  $postMsg.append(`<p>${post.msg}`);
-  $postBlock.append($postMsg);
+  let $postMsg = $('<p>').text(`${post.msg}`).addClass('text');
+  $post.append($postMsg);
 
-  let $postDate = $('<div>').addClass('post-info');
-  $postDate.append(`<p>${post.date}`);
-  $postBlock.append($postDate);
+  let $postDate = $('<div>').addClass('post__date-container');
+  let $date = $('<p>').text(`${post.date}`).addClass('text').addClass('post__date');
+  $postDate.append($date);
+  $post.append($postDate);
   
-  return $postBlock;
+  return $post;
 }
 
 function getPostHead(post, ownerID, userID)
 {
-  let $postHead = $('<div>').addClass('post-head');
-  let $postIntro = $('<div>').addClass('post-intro');
+  let $postHead = $('<div>').addClass('post__header');
+  let $postIntro = $('<div>').addClass('post__intro');
 
   $.getJSON(`/users/get-users`, users => {
     for(let user of users){
       if(user.id == ownerID){
-        $postIntro.append(`<img src="/img/avatars/${user.avatar}">`);
-        let $infoBlock = $('<div>').addClass('user-info');
-        $infoBlock.append(`<p>${user.name} ${user.secondName}`);
-        $postIntro.append($infoBlock);
+        let $img = $(`<img src="/img/avatars/${user.avatar}">`).addClass('post__user-img');
+        $postIntro.append($img);
+        let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
+        $name.addClass('user__name').addClass("black-text")
+        $postIntro.append($name);
       }
     }
   });
@@ -73,7 +76,9 @@ function getPostHead(post, ownerID, userID)
   $postHead.append($postIntro);
 
   let $removeForm = $(`<form action='/users/${userID}/${ownerID}/news/${post.id}' method="POST">`);
-  $removeForm.append(`<button id="delete-msg" onclick>Удалить`);
+  let $removeBtn = $(`<button onclick>Удалить</button>`);
+  $removeBtn.addClass("button").addClass("black-text");
+  $removeForm.append($removeBtn);
   $postHead.append($removeForm);
 
   return $postHead;
