@@ -10,15 +10,15 @@ function initUsersTable(users)
   let $header = $('<p>').text("Пользователи").addClass("heading").addClass("black-text");
   $(".users-list").append($header);
 
-  let $users = $('<div>').addClass("users");
+  let $users = $('<div>').addClass("list");
   users.forEach(user => {
-    $users.append(formUserInfo(user));
+    $users.append(getUserInfo(user));
   });
 
   $(".users-list").append($users);
 }
 
-function formUserInfo(user) 
+function getUserInfo(user)
 {
   let $user = $('<div>').addClass('user');
 

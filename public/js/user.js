@@ -1,6 +1,6 @@
 jQuery(() => {
     let id = window.location.pathname.split('/')[2];
-    console.log(id)
+    console.log("get user: " + id);
     $.getJSON(`/users/get-user/${id}`, user => {
       initUserTable(user);
     });
@@ -9,29 +9,29 @@ jQuery(() => {
 function initUserTable(userParam) 
 {
   let user = userParam.shift();
+  console.log(user);
 
-  let $top = $('<div>').addClass('top-block');
-  $top.append(`<img src="/img/pfp/${user.pfp}">`);
-  let $infoBlock = $('<div>').addClass('user-info');
-  $infoBlock.append(`<p>${user.name} ${user.secondName}`);
-  $top.append($infoBlock);
-  $(".user-intro").append($top);
+  let $img = $(`<img src="/img/avatars/${user.avatar}">`);
+  $img.addClass("account__img");
+  let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
+  $name.addClass('account__name').addClass("black-text");
+  $(".user-intro").append($img);
+  $(".user-intro").append($name);
 
-  let $infoDiv = $('<div>').addClass("list-header");
-  $infoDiv.append("<p> Информация");
-  $(".user-information").append($infoDiv);
-
+  let $header = $('<p>').text("Информация").addClass("heading").addClass("black-text");
   let $info = $('<div>').addClass("info-block");
-  let $infoText = $('<div>').addClass("info-text");
-  $infoText.append(`<p> Дата рождения: ${user.birthDate}`);
-  $infoText.append(`<p> Email: ${user.email}`);
-  $infoText.append(`<p> Роль: ${user.role}`);
-  $infoText.append(`<p> Статус: ${user.status}`);
-  $info.append($infoText);
+  $birthDate = $('<p>').text(`Дата рождения: ${user.birthDate}`).addClass("text");
+  $info.append($birthDate);
+  $email = $('<p>').text(`Email: ${user.email}`).addClass("text");
+  $info.append($email);
+  $role = $('<p>').text(`Роль: ${user.role}`).addClass("text");
+  $info.append($role);
+  $status = $('<p>').text(`Статус: ${user.status}`).addClass("text");
+  $info.append($status);
+  $(".user-information").append($header);
+  $(".user-information").append($info);
 
   // $info.append(`<button id='edit' onclick='window.settings_${user.id}.showModal()'>Редактировать`);
-
-  $(".user-information").append($info);
 
   // let $dialog = $(`<dialog id='settings_${user.id}'>`);
   // let $form = $(`<form action='/users/edit/${user.id}' method='POST' enctype="multipart/form-data">`);
@@ -46,7 +46,7 @@ function initUserTable(userParam)
   // $formDiv.append('<p>E-mail:');
   // $formDiv.append(`<input name='email' id='email' placeholder='e-mail' value=${user.email}>`);
   // $formDiv.append('<p>Фотография профиля:');
-  // $formDiv.append(`<input type='file' name='pfp'>`);
+  // $formDiv.append(`<input type='file' name='avatars'>`);
   // $formDiv.append('<p>Роль:');
   // let $role = $(`<select id='role' name="role">`);
   // $role.append('<option value="Пользователь">Пользователь');
