@@ -76,6 +76,7 @@ router.get("/users/get-friends/:id", (req, res) => {
         if(user.id === req.params.id){
             for(let friendsOwner of users){
                 if(req.params.id === friendsOwner.id){
+                    arr.push(friendsOwner.id);
                     arr.push(friendsOwner.name + " " + friendsOwner.secondName);
                     arr.push(friendsOwner.avatar);
                     break;
