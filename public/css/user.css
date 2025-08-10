@@ -4,11 +4,8 @@
 }
 
 .account__img {
-    border-radius: 50%;
-    object-fit: cover;
     width: 130px;
     height: 130px;
-    margin-right: 32px;
 }
 
 .account__name {

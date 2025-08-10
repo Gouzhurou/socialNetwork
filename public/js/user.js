@@ -12,7 +12,7 @@ function initUserTable(userParam)
   console.log(user);
 
   let $img = $(`<img src="/img/avatars/${user.avatar}">`);
-  $img.addClass("account__img");
+  $img.addClass("round-img").addClass("account__img");
   let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
   $name.addClass('account__name').addClass("black-text");
   $(".user-intro").append($img);

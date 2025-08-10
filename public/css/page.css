@@ -50,6 +50,17 @@ body {
   padding-bottom: 30px;
 }
 
+.text {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.round-img {
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 32px;
+}
+
 .button {
   font-size: 16px;
   font-weight: 500;
@@ -75,9 +86,4 @@ body {
   align-items: center;
   height: 200px;
   background-color: white;
-}
-
-.text {
-  font-size: 16px;
-  font-weight: 400;
 }

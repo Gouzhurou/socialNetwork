@@ -12,7 +12,7 @@ function initNewsTable(news) {
   let fileName = news.shift();
 
   let $img = $(`<img src="/img/avatars/${fileName}">`);
-  $img.addClass("account__img");
+  $img.addClass("round-img").addClass("account__img");
   let $name = $(`<a href='/users/${id}/user'>${name}</a>`);
   $name.addClass('account__name').addClass("black-text");
   $(".user-intro").append($img);
@@ -40,7 +40,7 @@ function getNews(post, ownerID, userID) {
   if (post.postimg != "")
   {
     $postImgContainer = $('<div>').addClass('post__img-container');
-    $postImg = $(`<img src="/img/posts/${post.postimg}">`).addClass('post__img')
+    $postImg = $(`<img src="/img/posts/${post.postimg}">`).addClass('post__img');
     $postImgContainer.append($postImg);
     $post.append($postImgContainer);
   }
@@ -64,7 +64,8 @@ function getPostHead(post, ownerID, userID)
   $.getJSON(`/users/get-users`, users => {
     for(let user of users){
       if(user.id == ownerID){
-        let $img = $(`<img src="/img/avatars/${user.avatar}">`).addClass('post__user-img');
+        let $img = $(`<img src="/img/avatars/${user.avatar}">`);
+        $img.addClass('round-img').addClass('post__user-img');
         $postIntro.append($img);
         let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
         $name.addClass('user__name').addClass("black-text")

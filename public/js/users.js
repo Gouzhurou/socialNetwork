@@ -23,7 +23,8 @@ function getUserInfo(user)
   let $user = $('<div>').addClass('user');
 
   let $top = $('<div>').addClass('user__info');
-  let $img = $(`<img src="/img/avatars/${user.avatar}">`).addClass('user__img');
+  let $img = $(`<img src="/img/avatars/${user.avatar}">`);
+  $img.addClass('round-img').addClass('user__img');
   $top.append($img);
   let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
   $name.addClass('user__name').addClass("black-text")

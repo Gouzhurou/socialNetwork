@@ -42,7 +42,7 @@ router.get("/users/:id/messages", (req, res) => {
 router.get("/users/:id/news", (req, res) => {
     for(let user of users){
         if(user.id == req.params.id){
-            res.render("news", {pageName: "Новости друзей пользователя " + user.name + " " + user.secondName});
+            res.render("news", {pageName: "Новостная лента " + user.name + " " + user.secondName});
         }
     }
 });
