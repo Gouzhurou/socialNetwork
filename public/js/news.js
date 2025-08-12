@@ -1,3 +1,5 @@
+import {getUserHead} from "./user.js";
+
 jQuery(() => {
   let id = window.location.pathname.split('/')[2];
   console.log("get user: " + id);
@@ -11,10 +13,7 @@ function initNewsTable(news) {
   let name = news.shift();
   let fileName = news.shift();
 
-  let $img = $(`<img src="/img/avatars/${fileName}">`);
-  $img.addClass("round-img").addClass("account__img");
-  let $name = $(`<a href='/users/${id}/user'>${name}</a>`);
-  $name.addClass('account__name').addClass("black-text");
+  const [$img, $name] = getUserHead(fileName, id, name);
   $(".user-intro").append($img);
   $(".user-intro").append($name);
 
@@ -39,8 +38,8 @@ function getNews(post, ownerID, userID) {
 
   if (post.postimg != "")
   {
-    $postImgContainer = $('<div>').addClass('post__img-container');
-    $postImg = $(`<img src="/img/posts/${post.postimg}">`).addClass('post__img');
+    let $postImgContainer = $('<div>').addClass('post__img-container');
+    let $postImg = $(`<img src="/img/posts/${post.postimg}">`).addClass('post__img');
     $postImgContainer.append($postImg);
     $post.append($postImgContainer);
   }
@@ -68,7 +67,7 @@ function getPostHead(post, ownerID, userID)
         $img.addClass('round-img').addClass('post__user-img');
         $postIntro.append($img);
         let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
-        $name.addClass('user__name').addClass("black-text")
+        $name.addClass('user__name').addClass("black-text");
         $postIntro.append($name);
       }
     }
@@ -78,7 +77,7 @@ function getPostHead(post, ownerID, userID)
 
   let $removeForm = $(`<form action='/users/${userID}/${ownerID}/news/${post.id}' method="POST">`);
   let $removeBtn = $(`<button onclick>Удалить</button>`);
-  $removeBtn.addClass("button").addClass("black-text");
+  $removeBtn.addClass("button");
   $removeForm.append($removeBtn);
   $postHead.append($removeForm);
 

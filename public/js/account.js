@@ -1,3 +1,5 @@
+import {getUserHead} from "./user.js";
+
 jQuery(() => {
     let id = window.location.pathname.split('/')[2];
     console.log("get user: " + id);
@@ -11,22 +13,19 @@ function initUserTable(userParam)
   let user = userParam.shift();
   console.log(user);
 
-  let $img = $(`<img src="/img/avatars/${user.avatar}">`);
-  $img.addClass("round-img").addClass("account__img");
-  let $name = $(`<a href='/users/${user.id}/user'>${user.name} ${user.secondName}</a>`);
-  $name.addClass('account__name').addClass("black-text");
+  const [$img, $name] = getUserHead(user.avatar, user.id, user.name + " " + user.secondName);
   $(".user-intro").append($img);
   $(".user-intro").append($name);
 
   let $header = $('<p>').text("Информация").addClass("heading").addClass("black-text");
   let $info = $('<div>').addClass("info-block");
-  $birthDate = $('<p>').text(`Дата рождения: ${user.birthDate}`).addClass("text");
+  let $birthDate = $('<p>').text(`Дата рождения: ${user.birthDate}`).addClass("text");
   $info.append($birthDate);
-  $email = $('<p>').text(`Email: ${user.email}`).addClass("text");
+  let $email = $('<p>').text(`Email: ${user.email}`).addClass("text");
   $info.append($email);
-  $role = $('<p>').text(`Роль: ${user.role}`).addClass("text");
+  let $role = $('<p>').text(`Роль: ${user.role}`).addClass("text");
   $info.append($role);
-  $status = $('<p>').text(`Статус: ${user.status}`).addClass("text");
+  let $status = $('<p>').text(`Статус: ${user.status}`).addClass("text");
   $info.append($status);
   $(".user-information").append($header);
   $(".user-information").append($info);
