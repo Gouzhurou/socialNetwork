@@ -2,7 +2,7 @@ import {getUserHead} from "./user.js";
 
 jQuery(() => {
     let id = window.location.pathname.split('/')[2];
-    console.log("get user: " + id);
+    console.log("get " + id + " account");
     $.getJSON(`/users/get-user/${id}`, user => {
       initUserTable(user);
     });
@@ -11,14 +11,33 @@ jQuery(() => {
 function initUserTable(userParam) 
 {
   let user = userParam.shift();
-  console.log(user);
 
   const [$img, $name] = getUserHead(user.avatar, user.id, user.name + " " + user.secondName);
   $(".user-intro").append($img);
   $(".user-intro").append($name);
 
   let $header = $('<p>').text("Информация").addClass("heading").addClass("black-text");
+  $(".user-information").append($header);
+
+  let $bottom = $('<div>').addClass("row");
+
+  let $info = getInfo(user);
+  $bottom.append($info);
+
+  let $button = $(`<button id='edit' onclick='window.settings_${user.id}.showModal()'>Редактировать</button>`);
+  $button.addClass("button");
+  $bottom.append($button);
+
+  let $dialog = getForm(user);
+  $bottom.append($dialog);
+
+  $(".user-information").append($bottom);
+}
+
+function getInfo(user)
+{
   let $info = $('<div>').addClass("info-block");
+
   let $birthDate = $('<p>').text(`Дата рождения: ${user.birthDate}`).addClass("text");
   $info.append($birthDate);
   let $email = $('<p>').text(`Email: ${user.email}`).addClass("text");
@@ -27,41 +46,75 @@ function initUserTable(userParam)
   $info.append($role);
   let $status = $('<p>').text(`Статус: ${user.status}`).addClass("text");
   $info.append($status);
-  $(".user-information").append($header);
-  $(".user-information").append($info);
 
-  // $info.append(`<button id='edit' onclick='window.settings_${user.id}.showModal()'>Редактировать`);
+  return $info;
+}
 
-  // let $dialog = $(`<dialog id='settings_${user.id}'>`);
-  // let $form = $(`<form action='/users/edit/${user.id}' method='POST' enctype="multipart/form-data">`);
-  // let $formDiv = $('<div>').addClass('formDiv');
-  // $formDiv.append(`<button id="close" onclick='window.settings_${user.id}.close()' type='reset'>x`);
-  // $formDiv.append('<p>ФИО:');
-  // $formDiv.append(`<input required name='name' id='name' placeholder='Имя' value=${user.name}>`);
-  // $formDiv.append(`<input required name='secondName' id='secondName' placeholder='Фамилия' value=${user.secondName}>`);
-  // $formDiv.append(`<input name='patronymic' id='patronymic' placeholder='Отчество' value=${user.patronymic}>`);
-  // $formDiv.append('<p>Дата рождения:');
-  // $formDiv.append(`<input required type='date' name='birthDate' id='birthDate' value="${user.birthDate}">`);
-  // $formDiv.append('<p>E-mail:');
-  // $formDiv.append(`<input name='email' id='email' placeholder='e-mail' value=${user.email}>`);
-  // $formDiv.append('<p>Фотография профиля:');
-  // $formDiv.append(`<input type='file' name='avatars'>`);
-  // $formDiv.append('<p>Роль:');
-  // let $role = $(`<select id='role' name="role">`);
-  // $role.append('<option value="Пользователь">Пользователь');
-  // $role.append('<option value="Администратор">Администратор');
-  // $role.val(user.role);
-  // $formDiv.append($role);
-  // $formDiv.append('<p>Статус:');
-  // let $status = $(`<select id='status' name="status">`);
-  // $status.append('<option value="Не подтвержден">Не подтвержден');
-  // $status.append('<option value="Активный">Активный');
-  // $status.append('<option value="Заблокированный">Заблокированный');
-  // $status.val(user.status);
-  // $formDiv.append($status);
-  // $formDiv.append('<p>');
-  // $formDiv.append(`<button id="sub" type='Submit'>OK`);
-  // $form.append($formDiv);
-  // $dialog.append($form);
-  // $bottom.append($dialog);
+function getForm(user)
+{
+  let $dialog = $(`<dialog id='settings_${user.id}'>`).addClass("white-block").addClass("user-settings");
+  let $form = $(`<form action='/users/edit/${user.id}' method='POST' enctype="multipart/form-data">`);
+
+  let $closeButtonBlock = $('<div>').addClass("close-button-block");
+  let $closeButton = $(`<button onclick='window.settings_${user.id}.close()' type='reset'>×</button>`);
+  $closeButton.addClass("button").addClass("close-button");
+  $closeButtonBlock.append($closeButton);
+  $form.append($closeButtonBlock);
+
+  let $list = $('<div>').addClass("info-block");
+
+  let $nameFieldName = $('<p>').text("Имя").addClass("text").addClass("user-settings__field-name");
+  $list.append($nameFieldName);
+  let $nameInput = $(`<input required name='name' placeholder='Имя' value=${user.name}>`);
+  $nameInput.addClass("user-settings__input").addClass("text");
+  $list.append($nameInput);
+
+  let $secondNameFieldName = $('<p>').text("Фамилия").addClass("text").addClass("user-settings__field-name");
+  $list.append($secondNameFieldName);
+  let $secondNameInput = $(`<input required name='secondName' placeholder='Фамилия' value=${user.secondName}>`);
+  $secondNameInput.addClass("user-settings__input").addClass("text");
+  $list.append($secondNameInput);
+
+  let $birthFieldName = $('<p>').text("Дата рождения").addClass("text").addClass("user-settings__field-name");
+  $list.append($birthFieldName);
+  let $birthInput = $(`<input required type='date' name='birthDate' value="${user.birthDate}">`);
+  $birthInput.addClass("user-settings__input").addClass("text");
+  $list.append($birthInput);
+
+  let $emailFieldName = $('<p>').text("E-mail").addClass("text").addClass("user-settings__field-name");
+  $list.append($emailFieldName);
+  let $emailInput = $(`<input type='email' name='email' placeholder='e-mail' value=${user.email}>`);
+  $emailInput.addClass("user-settings__input").addClass("text");
+  $list.append($emailInput);
+
+  let $imgFieldName = $('<p>').text("Фотография профиля").addClass("text").addClass("user-settings__field-name");
+  $list.append($imgFieldName);
+  let $imgInput = $(`<input type='file' name='avatar'>`);
+  $imgInput.addClass("user-settings__input").addClass("text");
+  $list.append($imgInput);
+
+  let $roleFieldName = $('<p>').text("Роль").addClass("text").addClass("user-settings__field-name");
+  $list.append($roleFieldName);
+  let $selectRole = $(`<select name="role">`).addClass("user-settings__input").addClass("text");
+  $selectRole.append('<option value="Пользователь">Пользователь');
+  $selectRole.append('<option value="Администратор">Администратор');
+  $selectRole.val(user.role);
+  $list.append($selectRole);
+
+  let $statusFieldName = $('<p>').text("Статус").addClass("text").addClass("user-settings__field-name");
+  $list.append($statusFieldName);
+  let $selectStatus = $(`<select name="status">`).addClass("user-settings__input").addClass("text");
+  $selectStatus.append('<option value="Не подтвержден">Не подтвержден');
+  $selectStatus.append('<option value="Активный">Активный');
+  $selectStatus.append('<option value="Заблокированный">Заблокированный');
+  $selectStatus.val(user.status);
+  $list.append($selectStatus);
+
+  let $submitButton = $(`<button type='Submit'>OK</button>`).addClass("button").addClass("submit-button");
+  $list.append($submitButton);
+
+  $form.append($list);
+  $dialog.append($form);
+
+  return $dialog;
 }

@@ -7,8 +7,8 @@
     "birthDate": "2002-10-03",
     "email": "arlantamom1999@gmail.com",
     "avatar": "senileelf.jpg",
-    "role": "Пользователь",
-    "status": "Администратор"
+    "role": "Администратор",
+    "status": "Активный"
   },
   {
     "id": "romapr70",
@@ -18,8 +18,8 @@
     "birthDate": "2002-05-02",
     "email": "romashka@gmail.com",
     "avatar": "romapr70.jpg",
-    "status": "Активный",
-    "role": "Не подтвержден"
+    "role": "Пользователь",
+    "status": "Активный"
   },
   {
     "id": "maracooon",
@@ -31,5 +31,16 @@
     "avatar": "maracooon.jpg",
     "role": "Пользователь",
     "status": "Не подтвержден"
+  },
+  {
+    "id": "babush",
+    "password": "password",
+    "name": "Екатерина",
+    "secondName": "Бабушкина",
+    "birthDate": "2002-06-21",
+    "email": "babush2007@mail.ru",
+    "avatar": "babush.jpg",
+    "role": "Пользователь",
+    "status": "Активный"
   }
 ]

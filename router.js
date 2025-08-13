@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-var fs = require("fs").promises
+var fs = require("fs");
+const path = require('path');
 var users = require("./public/json/users.json");
 var friends = require("./public/json/friends.json");
 var messages = require("./public/json/messages.json");
-var news = require("./public/json/news.json");
+var news = require("./public/json/posts.json");
 
 const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({ dest: './public/img' });
 
 router.get("/users", (req, res) => {
     res.render("users", {pageName: "Пользователи"});
@@ -18,7 +18,7 @@ router.get("/users", (req, res) => {
 router.get("/users/:id/user", (req, res) => {
     for(let user of users){
         if(user.id == req.params.id){
-            res.render("user", {pageName: "Пользователь " + user.name + " " + user.secondName});
+            res.render("account", {pageName: "Пользователь " + user.name + " " + user.secondName});
         }
     }
 });
@@ -187,17 +187,26 @@ router.get("/users/get-all-news/:id", (req, res) => {
 });
 
 
-router.post("/users/edit/:id", upload.none(), (req, res) => {
+router.post("/users/edit/:id", upload.single('avatar'), (req, res) => {
     for(let user of users){
         if(user.id === req.params.id){
             user.name = req.body.name;
             user.secondName = req.body.secondName;
             user.birthDate = req.body.birthDate;
-            // if(req.body.email.indexOf('@') != -1) user.email = req.body.email;
-            if(req.files && Object.keys(req.files).length !== 0){
-                const photo = req.files.avatar;
-                user.avatar = photo.name;
-                photo.mv("./public/img/avatars/" + photo.name);
+            user.email = req.body.email;
+            if (req.file){
+                const tempPath = req.file.path;
+                const targetDir = "./public/img/avatars/";
+                const fileExt = path.extname(req.file.originalname);
+                const newFileName = `avatar_${req.params.id}${fileExt}`;
+                const targetPath = path.join(targetDir, newFileName);
+                fs.rename(tempPath, targetPath, (err) => {
+                    if (err) {
+                        console.error("Ошибка перемещения файла:", err);
+                        return res.status(500).send("Ошибка сервера");
+                    }
+                    user.avatar = newFileName;
+                });
             }
             user.role = req.body.role;
             user.status = req.body.status;
@@ -231,7 +240,7 @@ router.post("/users/:userid/:ownerid/news/:newsid", (req, res) => {
             for(let i = 0; i < userNews.news.length; i++){
                 if(userNews.news[i].id == req.params.newsid){
                     userNews.news.splice(i, 1);
-                    fs.writeFile("./public/json/news.json", JSON.stringify(news, null, 2), 'utf8', () => {});
+                    fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
                     break;
                 }
             }
@@ -273,7 +282,7 @@ router.post("/add-post", upload.single('photo'), (req, res) => {
             });
         
             if(req.file) fs.writeFile("./public/img/posts/" + req.file.originalname, req.file.buffer, () => {});
-            fs.writeFile("./public/json/news.json", JSON.stringify(news, null, 2), 'utf8', () => {});
+            fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
         }
     }
 
@@ -293,7 +302,7 @@ async function writeMessages(){
 }
 
 async function writeNews(){
-    await fs.writeFile("./public/json/news.json", JSON.stringify(news, null, 2), 'utf8', () => {});
+    await fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
 }
 
 module.exports = {router, 

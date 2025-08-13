@@ -2,7 +2,8 @@
   {
     "id": "romapr70",
     "friendsID": [
-      "senileelf"
+      "senileelf",
+      "babush"
     ]
   },
   {
@@ -15,12 +16,15 @@
     "id": "senileelf",
     "friendsID": [
       "romapr70",
-      "maracooon"
+      "maracooon",
+      "babush"
     ]
   },
   {
-    "id": "hui",
+    "id": "babush",
     "friendsID": [
+      "senileelf",
+      "romapr70"
     ]
   }
 ]

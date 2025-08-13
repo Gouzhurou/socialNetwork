@@ -17,6 +17,14 @@
         "id": 1,
         "senderID": "romapr70",
         "receiverID": "senileelf"
+      },
+      {
+        "msg": "Где бабки, Лебовски?",
+        "date": "2025-08-03",
+        "time": "01:02",
+        "id": 2,
+        "senderID": "romapr70",
+        "receiverID": "babush"
       }
     ]
   },
@@ -58,6 +66,27 @@
         "time": "13:45",
         "id": 0,
         "senderID": "maracooon",
+        "receiverID": "senileelf"
+      }
+    ]
+  },
+  {
+    "id": "babush",
+    "messages": [
+      {
+        "msg": "Клевая фотосессия получилась",
+        "date": "2025-06-29",
+        "time": "13:45",
+        "id": 0,
+        "senderID": "babush",
+        "receiverID": "senileelf"
+      },
+      {
+        "msg": "Там Рома у меня бабки какие-то просит",
+        "date": "2025-06-29",
+        "time": "13:47",
+        "id": 1,
+        "senderID": "babush",
         "receiverID": "senileelf"
       }
     ]
