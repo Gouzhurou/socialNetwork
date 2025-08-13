@@ -30,7 +30,7 @@ export function getPost(post, postOwnerID, action, hasImg) {
 
 function getPostHead(post, ownerID, action)
 {
-    let $postHead = $('<div>').addClass('post__header');
+    let $postHead = $('<div>').addClass('row');
     let $postIntro = $('<div>').addClass('post__intro');
 
     $.getJSON(`/users/get-users`, users => {

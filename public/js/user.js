@@ -21,7 +21,7 @@ export function getUserBlock(user)
     $name.addClass('user__name').addClass("black-text")
     $top.append($name);
 
-    let $bottom = $('<div>').addClass('user__buttons');
+    let $bottom = $('<div>').addClass('row');
     let $friends = $(`<button onclick='window.location.href="/users/${user.id}/friends";'>Друзья</button>`);
     $friends.addClass("button").addClass("black-text");
     $bottom.append($friends);
