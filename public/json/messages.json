@@ -7,6 +7,7 @@
         "date": "0000-00-00",
         "time": "00:00",
         "id": 0,
+        "senderID": "romapr70",
         "receiverID": "senileelf"
       },
       {
@@ -14,6 +15,7 @@
         "date": "2024-11-24",
         "time": "13:43",
         "id": 1,
+        "senderID": "romapr70",
         "receiverID": "senileelf"
       }
     ]
@@ -26,6 +28,7 @@
         "date": "2024-10-02",
         "time": "01:00",
         "id": 0,
+        "senderID": "senileelf",
         "receiverID": "romapr70"
       },
       {
@@ -33,6 +36,7 @@
         "date": "2024-11-24",
         "time": "13:43",
         "id": 1,
+        "senderID": "senileelf",
         "receiverID": "maracooon"
       },
       {
@@ -40,12 +44,22 @@
         "date": "2024-11-24",
         "time": "13:43",
         "id": 2,
+        "senderID": "senileelf",
         "receiverID": "romapr70"
       }
     ]
   },
   {
     "id": "maracooon",
-    "messages": []
+    "messages": [
+      {
+        "msg": "Конечно",
+        "date": "2024-11-24",
+        "time": "13:45",
+        "id": 0,
+        "senderID": "maracooon",
+        "receiverID": "senileelf"
+      }
+    ]
   }
 ]

@@ -97,24 +97,34 @@ router.get("/users/get-friends/:id", (req, res) => {
 });
 
 router.get("/users/get-messages/:id", (req, res) => {
-    let arr = []
-    for(let user of messages){
-        if(user.id === req.params.id){
-            for(let messagesOwner of users){
-                if(req.params.id == messagesOwner.id){
-                    arr.push(messagesOwner.name + " " + messagesOwner.secondName);
-                    arr.push(messagesOwner.avatar);
-                    break;
-                }
-            }
-            arr.push(user.messages);
+    let arr = [];
+
+    // get user info
+    for(let user of users){
+        if(req.params.id === user.id){
+            arr.push(user.id);
+            arr.push(user.name + " " + user.secondName);
+            arr.push(user.avatar);
             break;
         }
     }
+
+    // get messages
+    let messagesList = [];
+    for(let user of messages){
+        for(let message of user.messages){
+            if(message.receiverID === req.params.id){
+                messagesList.push(message);
+            }
+        }
+    }
+    arr.push(messagesList);
+
     res.end(JSON.stringify(arr));
 });
 
 router.get("/users/get-news/:id", (req, res) => {
+    // get user friends
     let friendsID = [];
     for(let user of friends){
         if(user.id === req.params.id){
@@ -123,6 +133,7 @@ router.get("/users/get-news/:id", (req, res) => {
         }
     }
 
+    // get user info
     let posts = [];
     for(let user of users){
         if(req.params.id === user.id){
@@ -133,10 +144,11 @@ router.get("/users/get-news/:id", (req, res) => {
         }
     }
 
+    // get friends posts
     for(let id of friendsID){   
-        for(let friendPosts of news){
-            if(friendPosts.id === id){
-                posts = posts.concat(friendPosts);
+        for(let friend of news){
+            if(friend.id === id){
+                posts = posts.concat(friend);
             }
         }
     }
@@ -175,14 +187,13 @@ router.get("/users/get-all-news/:id", (req, res) => {
 });
 
 
-router.post("/users/edit/:id", (req, res) => {
+router.post("/users/edit/:id", upload.none(), (req, res) => {
     for(let user of users){
         if(user.id === req.params.id){
             user.name = req.body.name;
             user.secondName = req.body.secondName;
-            user.patronymic = req.body.patronymic;
             user.birthDate = req.body.birthDate;
-            if(req.body.email.indexOf('@') != -1) user.email = req.body.email;
+            // if(req.body.email.indexOf('@') != -1) user.email = req.body.email;
             if(req.files && Object.keys(req.files).length !== 0){
                 const photo = req.files.avatar;
                 user.avatar = photo.name;
@@ -194,22 +205,24 @@ router.post("/users/edit/:id", (req, res) => {
             break;
         }
     }   
-    res.redirect('/users');
+    res.redirect(`/users/${req.params.id}/user`);
 });
 
-router.post("/users/:userid/messages/:msgid", (req, res) => {
-    for(msgOwner of messages){
-        if(msgOwner.id == req.params.userid){
-            for(let i = 0; i < msgOwner.messages.length; i++){
-                if(msgOwner.messages[i].id == req.params.msgid){
-                    msgOwner.messages.splice(i, 1);
+router.post("/users/:senderid/messages/:msgid", (req, res) => {
+    let receiverID = "";
+    for(user of messages){
+        if(user.id == req.params.senderid){
+            for(let i = 0; i < user.messages.length; i++){
+                if(user.messages[i].id == req.params.msgid){
+                    receiverID = user.messages[i].receiverID;
+                    user.messages.splice(i, 1);
                     fs.writeFile("./public/json/messages.json", JSON.stringify(messages, null, 2), 'utf8', () => {});
                     break;
                 }
             }
         }
     }
-    res.redirect('/users/' + req.params.userid + "/messages");
+    res.redirect(`/users/${receiverID}/messages`);
 });
 
 router.post("/users/:userid/:ownerid/news/:newsid", (req, res) => {
