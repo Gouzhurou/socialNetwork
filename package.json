@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "babel": "*",
     "cors": "^2.8.5",

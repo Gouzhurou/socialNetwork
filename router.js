@@ -1,15 +1,16 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-var fs = require("fs");
-const path = require('path');
-var users = require("./public/json/users.json");
-var friends = require("./public/json/friends.json");
-var messages = require("./public/json/messages.json");
-var news = require("./public/json/posts.json");
+import fs from "fs";
+import path from "path";
+import { readFile } from "fs/promises";
+const users = JSON.parse(await readFile(new URL("./public/json/users.json", import.meta.url)));
+const friends = JSON.parse(await readFile(new URL("./public/json/friends.json", import.meta.url)));
+const messages = JSON.parse(await readFile(new URL("./public/json/messages.json", import.meta.url)));
+const news = JSON.parse(await readFile(new URL("./public/json/posts.json", import.meta.url)));
 
-const multer = require('multer');
-const upload = multer({ dest: './public/img' });
+import multer from "multer";
+const upload = multer({ dest: "./public/img" });
 
 router.get("/users", (req, res) => {
     res.render("users", {pageName: "Пользователи"});
@@ -305,10 +306,11 @@ async function writeNews(){
     await fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
 }
 
-module.exports = {router, 
-    users, 
-    friends, 
-    messages, 
+export {
+    router,
+    users,
+    friends,
+    messages,
     news,
     writeUsers,
     writeFriends,
