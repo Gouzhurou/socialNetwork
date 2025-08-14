@@ -1,51 +1,35 @@
+import {getUserHead} from "./user.js";
+import {getPost} from "./post.js";
+
 jQuery(() => {
-    let id = window.location.pathname.split('/')[2];
-    $.getJSON(`/users/get-messages/${id}`, (messages) => {
-        initMessagesTable(messages);
-    });
+  let id = window.location.pathname.split('/')[2];
+  console.log("get " + id + " messages");
+  $.getJSON(`/users/get-messages/${id}`, messages => {
+    getMessagesList(messages);
+  });
 });
 
-function initMessagesTable(messages){ 
-    let name = messages.shift();
-    let $headerDiv = $('<div>').addClass("headerContainer");
-    $headerDiv.append("<h1> Сообщения пользователя " + name);
-    $(".usersList").append($headerDiv);
-    let $table = $('<table></table>');
-    console.log(messages);
-    messages[0].forEach(message => {
-        let $tr = $('<tr></tr>');
-        let $td = $('<td></td>');
-        $td.append(formMessage(message));
-        $tr.append($td);
-        $table.append($tr);
-    });
-    $(".usersList").append($table);
-}
+function getMessagesList(messages) {
+  let id = messages.shift();
+  let name = messages.shift();
+  let fileName = messages.shift();
 
-function formMessage(message){
-    let $userBlock = $('<div>').addClass('userContainer');
-    let $messageBlock = $('<div>').addClass('messageBlock');
-    let $timeBlock = $('<div>').addClass('timeBlock');
+  const [$img, $name] = getUserHead(fileName, id, name);
+  $(".user-intro").append($img);
+  $(".user-intro").append($name);
 
+  let $header = $('<p>').text("Сообщения").addClass("heading").addClass("black-text");
+  $(".user-messages").append($header);
 
-    $messageBlock.append(`<h2>${message.msg}`);
-
-    $.getJSON(`/users/get-users`, (users) => {
-        for(user of users){
-            if(user.id == message.recieverID){
-                $timeBlock.append(`<p>${message.time} | ${message.date} | => ${user.name + " " + user.secondName}`);
-            }
-        }
-    });
-
-    let id = window.location.pathname.split('/')[2];
-    let $removeForm = $(`<form action='/users/${id}/messages/${message.id}' method="DELETE">`);
-     
-    $removeForm.append(`<button id="deleteMsg" onclick>Удалить`);
-
-    $userBlock.append($messageBlock);
-    $userBlock.append($timeBlock);
-    $userBlock.append($removeForm);
-
-    return $userBlock;
+  let $messages = $('<div>').addClass("list");
+  messages[0].forEach(message => {
+    $messages.append(
+        getPost(
+            message,
+            message.senderID,
+            `/users/${message.senderID}/messages/${message.id}`
+        )
+    );
+  });
+  $('.user-messages').append($messages);
 }

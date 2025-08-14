@@ -1,3 +1,11 @@
+@gray: rgb(152, 152, 152);
+@shadow: rgba(0, 0, 0, 0.2);
+
+.column (@direction: column) {
+    display: flex;
+    flex-direction: @direction;
+}
+
 .user-intro {
     display: flex;
     align-items: center;
@@ -14,21 +22,19 @@
 }
 
 .info-block {
-    display: flex;
-    flex-direction: column;
+    .column();
     gap: 8px;
 }
 
 .user-settings {
     border: none;
-    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 40px @shadow;
     transform: translate(50%, 20%);
     width: 50%;
 }
 
 .close-button-block {
-    display: flex;
-    flex-direction: row-reverse;
+    .column(row-reverse);
 }
 
 .close-button {
@@ -39,7 +45,7 @@
     width: 100%;
     height: 36px;
     border-radius: 8px;
-    border: 1px solid rgb(152, 152, 152);
+    border: 1px solid @gray;
     padding: 5px 10px;
     box-sizing: border-box;
 }

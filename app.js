@@ -1,14 +1,15 @@
-var express = require('express');
-var path = require('path');
-var {router} = require('./router');
-var bodyParser = require('body-parser');
-var http = require('http');
-var https = require('https');
-var fs = require('fs');
-const cors = require("cors");
-const { Server } = require('socket.io');
+import express from 'express';
+import path from 'path';
+import { router } from './router.js';
+import bodyParser from 'body-parser';
+import http from 'http';
+import https from 'https';
+import fs from 'fs';
+import cors from 'cors';
+import { Server } from 'socket.io';
+import { fileURLToPath } from 'url';
 
-var app = express();
+const app = express();
 
 const corsOptions = { 
     'credentials': true, 
@@ -17,6 +18,9 @@ const corsOptions = {
     'allowedHeaders': 'Authorization,X-Requested-With,X-HTTPMethod-Override,Content-Type,Cache-Control,Accept'}
 
 app.use(cors(corsOptions));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -43,9 +47,9 @@ const io = new Server(httpApp, {
       methods: ['GET', 'POST'],
       credentials: true,
     }
-  }); 
+  });
 
-module.exports = { app, io };
+export { app, io };
 
 io.on('connection', (socket) => {
   console.log('Пользователь подключился:', socket.id);
