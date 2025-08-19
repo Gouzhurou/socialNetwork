@@ -111,15 +111,13 @@ router.get("/users/get-messages/:id", (req, res) => {
     }
 
     // get messages
-    let messagesList = [];
     for(let user of messages){
         for(let message of user.messages){
             if(message.receiverID === req.params.id){
-                messagesList.push(message);
+                arr.push(message);
             }
         }
     }
-    arr.push(messagesList);
 
     res.end(JSON.stringify(arr));
 });
@@ -219,35 +217,40 @@ router.post("/users/edit/:id", upload.single('avatar'), (req, res) => {
 });
 
 router.post("/users/:senderid/messages/:msgid", (req, res) => {
-    let receiverID = "";
-    for(user of messages){
+    for(let user of messages){
         if(user.id == req.params.senderid){
             for(let i = 0; i < user.messages.length; i++){
                 if(user.messages[i].id == req.params.msgid){
-                    receiverID = user.messages[i].receiverID;
+                    let receiverID = user.messages[i].receiverID;
                     user.messages.splice(i, 1);
                     fs.writeFile("./public/json/messages.json", JSON.stringify(messages, null, 2), 'utf8', () => {});
-                    break;
+                    return res.status(200).send({
+                        getJSONurl: `/users/get-messages/${receiverID}`,
+                        userid: receiverID
+                    });
                 }
             }
         }
     }
-    res.redirect(`/users/${receiverID}/messages`);
+    return res.status(404).send({ success: false, error: "Пост не найден" });
 });
 
 router.post("/users/:userid/:ownerid/news/:newsid", (req, res) => {
-    for(userNews of news){
-        if(userNews.id == req.params.ownerid){
-            for(let i = 0; i < userNews.news.length; i++){
-                if(userNews.news[i].id == req.params.newsid){
-                    userNews.news.splice(i, 1);
+    for(let user of news){
+        if(user.id == req.params.ownerid){
+            for(let i = 0; i < user.news.length; i++){
+                if(user.news[i].id == req.params.newsid){
+                    user.news.splice(i, 1);
                     fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
-                    break;
+                    return res.status(200).json({
+                        getJSONurl: `/users/get-news/${req.params.userid}`,
+                        userid: req.params.userid
+                    });
                 }
             }
         }
     }
-    res.redirect('/users/' + req.params.userid + "/news");
+    return res.status(404).send({ success: false, error: "Пост не найден" });
 });
 
 router.post("/addUser", (req, res) => {

@@ -41,6 +41,16 @@
 
 ---
 
+## Стек
+
+- jQuery (DOM, AJAX)
+- LESS
+- Node.JS (express)
+- pug
+- GULP
+
+---
+
 ## Начало работы с проектом
 
 1. Установить модуль gulp

@@ -1,5 +1,5 @@
 import {getUserHead} from "./user.js";
-import {getPost} from "./post.js";
+import {getPosts} from "./post.js";
 
 jQuery(() => {
   let id = window.location.pathname.split('/')[2];
@@ -21,20 +21,7 @@ function getNewsList(news) {
   let $header = $('<p>').text("Новости").addClass("heading").addClass("black-text");
   $(".user-posts").append($header);
 
-  let $news = $('<div>').addClass("list");
-  news.forEach(friendNews => {
-    let postOwnerID = friendNews.id;
-    let posts = friendNews.news;
-    posts.forEach(post => {
-      $news.append(
-          getPost(
-              post,
-              postOwnerID,
-          `/users/${id}/${postOwnerID}/news/${post.id}`,
-          post.img != ""
-          )
-      );
-    });
-  });
-  $(".user-posts").append($news);
+  let $posts = $('<div>').addClass("list");
+  getPosts(news, $posts, id);
+  $(".user-posts").append($posts);
 }

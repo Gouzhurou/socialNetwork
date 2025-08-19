@@ -1,5 +1,5 @@
 import {getUserHead} from "./user.js";
-import {getPost} from "./post.js";
+import {getMessages} from "./post.js";
 
 jQuery(() => {
   let id = window.location.pathname.split('/')[2];
@@ -22,14 +22,6 @@ function getMessagesList(messages) {
   $(".user-messages").append($header);
 
   let $messages = $('<div>').addClass("list");
-  messages[0].forEach(message => {
-    $messages.append(
-        getPost(
-            message,
-            message.senderID,
-            `/users/${message.senderID}/messages/${message.id}`
-        )
-    );
-  });
+  getMessages(messages, $messages);
   $('.user-messages').append($messages);
 }
