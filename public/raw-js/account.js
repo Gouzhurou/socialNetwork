@@ -1,4 +1,5 @@
 import {getUserHead} from "./user.js";
+import {getPosts} from "./post.js";
 
 jQuery(() => {
     let id = window.location.pathname.split('/')[2];
@@ -19,19 +20,30 @@ function initUserTable(userParam)
   let $header = $('<p>').text("Информация").addClass("heading").addClass("black-text");
   $(".user-information").append($header);
 
-  let $bottom = $('<div>').addClass("row");
+  let $row = $('<div>').addClass("row");
 
   let $info = getInfo(user);
-  $bottom.append($info);
+  $row.append($info);
 
   let $button = $(`<button id='edit' onclick='window.settings_${user.id}.showModal()'>Редактировать</button>`);
   $button.addClass("button");
-  $bottom.append($button);
+  $row.append($button);
 
   let $dialog = getForm(user);
-  $bottom.append($dialog);
+  $row.append($dialog);
 
-  $(".user-information").append($bottom);
+  $(".user-information").append($row);
+
+  $header = $('<p>').text("Новости").addClass("heading").addClass("black-text");
+  $(".user-posts").append($header);
+
+  let id = userParam.shift();
+  let name = userParam.shift();
+  let fileName = userParam.shift();
+
+  let $posts = $('<div>').addClass("list");
+  getPosts(userParam, $posts, user.id);
+  $(".user-posts").append($posts);
 }
 
 function getInfo(user)

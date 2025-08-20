@@ -17,34 +17,38 @@ router.get("/users", (req, res) => {
 });
 
 router.get("/users/:id/user", (req, res) => {
-    for(let user of users){
-        if(user.id == req.params.id){
-            res.render("account", {pageName: "Пользователь " + user.name + " " + user.secondName});
-        }
+    const user = users.find(user => user.id == req.params.id);
+    if (user) {
+        res.render("account", {
+            pageName: `Пользователь ${user.name} ${user.secondName}`
+        });
     }
 });
 
 router.get("/users/:id/friends", (req, res) => {
-    for(let user of users){
-        if(user.id == req.params.id){
-            res.render("friends", {pageName: "Друзья " + user.name + " " + user.secondName});
-        }
+    const user = users.find(user => user.id == req.params.id);
+    if (user) {
+        res.render("friends", {
+            pageName: `Друзья ${user.name} ${user.secondName}`
+        });
     }
 });
 
 router.get("/users/:id/messages", (req, res) => {
-    for(let user of users){
-        if(user.id == req.params.id){
-            res.render("messages", {pageName: "Сообщения " + user.name + " " + user.secondName});
-        }
+    const user = users.find(user => user.id == req.params.id);
+    if (user) {
+        res.render("messages", {
+            pageName: `Сообщения ${user.name} ${user.secondName}`
+        });
     }
 });
 
 router.get("/users/:id/news", (req, res) => {
-    for(let user of users){
-        if(user.id == req.params.id){
-            res.render("news", {pageName: "Новостная лента " + user.name + " " + user.secondName});
-        }
+    const user = users.find(user => user.id == req.params.id);
+    if (user) {
+        res.render("news", {
+            pageName: `Новостная лента ${user.name} ${user.secondName}`
+        });
     }
 });
 
@@ -53,138 +57,82 @@ router.get("/users/get-users", (req, res) => {
 });
 
 router.get("/users/get-user/:id", (req, res) => {
-    let arr = []
-    for(let user of users){
-        if(user.id === req.params.id){
-            arr.push(user);
-            break;
-        }
+    let result = [];
+
+    const user = users.find(user => user.id == req.params.id);
+    if (user) {
+        result.push(user);
     }
 
-    for(let user of news){
-        if(user.id === req.params.id){
-            arr.push(user.news);
-            break;
-        }
+    result = result.concat(getUserInfo(req.params.id));
+    const userNews = news.find(user => user.id == req.params.id).news;
+    if (userNews) {
+        result = result.concat(userNews);
     }
 
-    res.end(JSON.stringify(arr));
+    res.end(JSON.stringify(result));
 });
 
+function getUserInfo(id) {
+    let result = [];
+
+    const user = users.find(user => user.id == id);
+    if (user) {
+        result.push(user.id);
+        result.push(`${user.name} ${user.secondName}`);
+        result.push(user.avatar);
+    }
+
+    return result;
+}
+
+function getFriendsID(id) {
+    return friends.find(user => user.id == id).friendsID;
+}
+
 router.get("/users/get-friends/:id", (req, res) => {
-    let arr = []
-    for(let user of friends){
-        if(user.id === req.params.id){
-            for(let friendsOwner of users){
-                if(req.params.id === friendsOwner.id){
-                    arr.push(friendsOwner.id);
-                    arr.push(friendsOwner.name + " " + friendsOwner.secondName);
-                    arr.push(friendsOwner.avatar);
-                    break;
-                }
-            }
-            for(let friendID of user.friendsID){
-                for(let friend of users){
-                    if(friend.id === friendID){
-                        arr.push(friend);
-                        break;
-                    }
-                }
-            }
-            break;
+    let result = getUserInfo(req.params.id);
+
+    const friendsID = getFriendsID(req.params.id);
+    for(let friendID of friendsID) {
+        const friend = users.find(user => user.id == friendID);
+        if (friend) {
+            result.push(friend);
         }
     }
-    res.end(JSON.stringify(arr));
+
+    res.end(JSON.stringify(result));
 });
 
 router.get("/users/get-messages/:id", (req, res) => {
-    let arr = [];
-
-    // get user info
-    for(let user of users){
-        if(req.params.id === user.id){
-            arr.push(user.id);
-            arr.push(user.name + " " + user.secondName);
-            arr.push(user.avatar);
-            break;
-        }
-    }
+    let result = getUserInfo(req.params.id);
 
     // get messages
-    for(let user of messages){
-        for(let message of user.messages){
-            if(message.receiverID === req.params.id){
-                arr.push(message);
-            }
-        }
-    }
+    result = result.concat(
+        messages.flatMap(user =>
+            user.messages.filter(message => message.receiverID === req.params.id)
+        )
+    );
 
-    res.end(JSON.stringify(arr));
+    res.end(JSON.stringify(result));
+});
+
+router.get("/users/get-friends-news/:id", (req, res) => {
+    let posts = getUserInfo(req.params.id);
+
+    let friendsID = getFriendsID(req.params.id);
+    posts = posts.concat(news.filter(user => friendsID.includes(user.id)));
+
+    res.end(JSON.stringify(posts));
 });
 
 router.get("/users/get-news/:id", (req, res) => {
-    // get user friends
-    let friendsID = [];
-    for(let user of friends){
-        if(user.id === req.params.id){
-            friendsID = user.friendsID;
-            break;
-        }
-    }
+    let posts = getUserInfo(req.params.id);
 
-    // get user info
-    let posts = [];
-    for(let user of users){
-        if(req.params.id === user.id){
-            posts.push(user.id);
-            posts.push(user.name + " " + user.secondName);
-            posts.push(user.avatar);
-            break;
-        }
-    }
-
-    // get friends posts
-    for(let id of friendsID){   
-        for(let friend of news){
-            if(friend.id === id){
-                posts = posts.concat(friend);
-            }
-        }
-    }
+    posts = posts.concat(news.find(user => user.id == req.params.id).news);
 
     res.end(JSON.stringify(posts));
 });
-
-router.get("/users/get-all-news/:id", (req, res) => {
-    let friendsID = [];
-    for(let user of friends){
-        if(user.id === req.params.id){
-            friendsID = user.friendsID;
-            break;
-        }
-    }
-
-    let posts = [];
-    for(let user of news){
-        if(req.params.id === user.id){
-            for(let userPost of user.news){
-                posts = posts.concat({id: user.id, post: userPost});
-            }
-        }
-    }
-    for(let id of friendsID){   
-        for(let friendPosts of news){
-            if(friendPosts.id == id){
-                for(let userPost of friendPosts.news){
-                    posts = posts.concat({id: id, post: userPost});
-                }
-            }
-        }
-    }
-
-    res.end(JSON.stringify(posts));
-});
-
 
 router.post("/users/edit/:id", upload.single('avatar'), (req, res) => {
     for(let user of users){
@@ -217,40 +165,55 @@ router.post("/users/edit/:id", upload.single('avatar'), (req, res) => {
 });
 
 router.post("/users/:senderid/messages/:msgid", (req, res) => {
-    for(let user of messages){
-        if(user.id == req.params.senderid){
-            for(let i = 0; i < user.messages.length; i++){
-                if(user.messages[i].id == req.params.msgid){
-                    let receiverID = user.messages[i].receiverID;
-                    user.messages.splice(i, 1);
-                    fs.writeFile("./public/json/messages.json", JSON.stringify(messages, null, 2), 'utf8', () => {});
-                    return res.status(200).send({
-                        getJSONurl: `/users/get-messages/${receiverID}`,
-                        userid: receiverID
-                    });
-                }
-            }
-        }
-    }
-    return res.status(404).send({ success: false, error: "Пост не найден" });
+    const user = messages.find(user => user.id == req.params.senderid);
+    if (!user) return res.status(404).send({error: "User not found"});
+
+    const messageIndex = user.messages.findIndex(msg => msg.id == req.params.msgid);
+    if (messageIndex === -1) return res.status(404).send({error: "Message not found"});
+
+    const receiverID = user.messages[messageIndex].receiverID;
+    user.messages.splice(messageIndex, 1);
+
+    fs.writeFile("./public/json/messages.json", JSON.stringify(messages, null, 2), 'utf8', () => {});
+
+    return res.status(200).send({
+        getJSONurl: `/users/get-messages/${receiverID}`,
+        userid: receiverID
+    });
 });
 
 router.post("/users/:userid/:ownerid/news/:newsid", (req, res) => {
-    for(let user of news){
-        if(user.id == req.params.ownerid){
-            for(let i = 0; i < user.news.length; i++){
-                if(user.news[i].id == req.params.newsid){
-                    user.news.splice(i, 1);
-                    fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
-                    return res.status(200).json({
-                        getJSONurl: `/users/get-news/${req.params.userid}`,
-                        userid: req.params.userid
-                    });
-                }
-            }
-        }
-    }
-    return res.status(404).send({ success: false, error: "Пост не найден" });
+    const user = news.find(user => user.id == req.params.ownerid);
+    if (!user) return res.status(404).send({error: "User not found"});
+
+    const newsIndex = user.news.findIndex(news => news.id == req.params.newsid);
+    if (newsIndex === -1) return res.status(404).send({error: "News not found"});
+
+    user.news.splice(newsIndex, 1);
+
+    fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
+
+    return res.status(200).json({
+        getJSONurl: `/users/get-friends-news/${req.params.userid}`,
+        userid: req.params.userid
+    });
+});
+
+router.post("/users/:userid/news/:newsid", (req, res) => {
+    const user = news.find(user => user.id == req.params.userid);
+    if (!user) return res.status(404).send({error: "User not found"});
+
+    const newsIndex = user.news.findIndex(news => news.id == req.params.newsid);
+    if (newsIndex === -1) return res.status(404).send({error: "News not found"});
+
+    user.news.splice(newsIndex, 1);
+
+    fs.writeFile("./public/json/posts.json", JSON.stringify(news, null, 2), 'utf8', () => {});
+
+    return res.status(200).json({
+        getJSONurl: `/users/get-news/${req.params.userid}`,
+        userid: req.params.userid
+    });
 });
 
 router.post("/addUser", (req, res) => {

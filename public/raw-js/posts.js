@@ -1,10 +1,10 @@
 import {getUserHead} from "./user.js";
-import {getPosts} from "./post.js";
+import {getFriendsPosts} from "./post.js";
 
 jQuery(() => {
   let id = window.location.pathname.split('/')[2];
   console.log("get " + id + " news");
-  $.getJSON(`/users/get-news/${id}`, news => {
+  $.getJSON(`/users/get-friends-news/${id}`, news => {
     getNewsList(news);
   });
 });
@@ -22,6 +22,6 @@ function getNewsList(news) {
   $(".user-posts").append($header);
 
   let $posts = $('<div>').addClass("list");
-  getPosts(news, $posts, id);
+  getFriendsPosts(news, $posts, id);
   $(".user-posts").append($posts);
 }

@@ -1,11 +1,11 @@
-export function getPosts(posts, $posts, id) {
+export function getFriendsPosts(posts, $posts, id) {
     posts.forEach(friendNews => {
         let postOwnerID = friendNews.id;
         let posts = friendNews.news;
         posts.forEach(post => {
             $posts.append(
                 getPost(
-                    getPosts,
+                    getFriendsPosts,
                     post,
                     postOwnerID,
                     `/users/${id}/${postOwnerID}/news/${post.id}`,
@@ -13,6 +13,20 @@ export function getPosts(posts, $posts, id) {
                 )
             );
         });
+    });
+}
+
+export function getPosts(posts, $posts, id) {
+    posts.forEach(post => {
+        $posts.append(
+            getPost(
+                getPosts,
+                post,
+                id,
+                `/users/${id}/news/${post.id}`,
+                post.img != ""
+            )
+        );
     });
 }
 
