@@ -44,6 +44,8 @@
 ## Стек
 
 - jQuery (DOM, AJAX)
+- ES modules (not CommonJS)
+- Babel (traspiler)
 - LESS
 - Node.JS (express)
 - pug
@@ -53,22 +55,28 @@
 
 ## Начало работы с проектом
 
-1. Установить модуль gulp
+1. Подтянуть зависимости 
+
+```bash
+npm i
+```
+
+2. Установить модуль gulp
 
 ```bash
 pip install gulp
 ```
 
-2. Запустить конфигурационный файл
+3. Запустить конфигурационный файл
 
 ```bash
 npx gulp
 ```
 
-3. Запустить программу
+4. Запустить программу
 
 ```bash
-node app.js
+npm run start
 ```
 
-4. Главную страницу можно посмотреть [тут](http://localhost:8080/users)
+5. Главную страницу можно посмотреть [тут](http://localhost:8080/users)

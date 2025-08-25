@@ -67,4 +67,6 @@ io.on('connection', (socket) => {
 var httpsApp = https.createServer(credentials, app);
 
 httpApp.listen(8080);
-httpsApp.listen(8443);
+httpsApp.listen(8443, () => {
+    console.log('Server started on https://localhost:8443/users');
+});

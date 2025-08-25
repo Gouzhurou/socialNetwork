@@ -3,11 +3,11 @@ const router = express.Router();
 
 import fs from "fs";
 import path from "path";
-import { readFile } from "fs/promises";
-const users = JSON.parse(await readFile(new URL("./public/json/users.json", import.meta.url)));
-const friends = JSON.parse(await readFile(new URL("./public/json/friends.json", import.meta.url)));
-const messages = JSON.parse(await readFile(new URL("./public/json/messages.json", import.meta.url)));
-const news = JSON.parse(await readFile(new URL("./public/json/posts.json", import.meta.url)));
+import { readFileSync } from 'fs';
+const users = JSON.parse(readFileSync(new URL("./public/json/users.json", import.meta.url), 'utf8'));
+const friends = JSON.parse(readFileSync(new URL("./public/json/friends.json", import.meta.url), 'utf8'));
+const messages = JSON.parse(readFileSync(new URL("./public/json/messages.json", import.meta.url), 'utf8'));
+const news = JSON.parse(readFileSync(new URL("./public/json/posts.json", import.meta.url), 'utf8'));
 
 import multer from "multer";
 const upload = multer({ dest: "./public/img" });
@@ -274,10 +274,6 @@ async function writeNews(){
 
 export {
     router,
-    users,
-    friends,
-    messages,
-    news,
     writeUsers,
     writeFriends,
     writeMessages,
